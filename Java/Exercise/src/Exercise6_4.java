@@ -1,8 +1,8 @@
 
 public class Exercise6_4 {
-	// µÎ Á¡ (x, y)¿Í (x1, y1)°£ÀÇ °Å¸®¸¦ ±¸ÇÑ´Ù.
+	// ë‘ ì  (x, y)ì™€ (x1, y1)ê°„ì˜ ê±°ë¦¬ë¥¼ êµ¬í•œë‹¤.
 	static double getDistance(int x, int y, int x1, int y1) {
-		return Math.sqrt((x - x1) * (x - x1) + (y - y1) * (y - y1)); // x, y´Â Áö¿ªº¯¼ö
+		return Math.sqrt((x - x1) * (x - x1) + (y - y1) * (y - y1)); // x, yëŠ” ì§€ì—­ë³€ìˆ˜
 
 	}
 
