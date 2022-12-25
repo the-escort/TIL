@@ -24,7 +24,7 @@ public boolean equals(Object obj) {
 
 위의 코드에서 알 수 있듯이 두 객체의 같고 다름을 참조변수의 값으로 판단한다. 그렇기 때문에 서로 다른 두 객체를 equals메서드로 비교하면 항상 false를 결과로 얻게 된다.
 
-*객채를 생성할 때, 메모리의 비어있는 공간을 찾아 생성하므로 서로 다른 두 개의 객체 같은 주소를 갖는 일은 있을 수 없다.
+*객채를 생성할 때, 메모리의 비어있는 공간을 찾아 생성하므로 서로 다른 두 개의 객체가 같은 주소를 갖는 일은 있을 수 없다.
 
 ```java
 class Ex9_1 {
@@ -132,6 +132,12 @@ class Ex9_3 {
 
 이 메서드는 인스턴스에 대한 정보를 문자열(String)로 제공할 목적으로 정의한 것이다. 인스턴스의 정보를 제공한다는 것은 대부분의 경우 인스턴스 변수에 저장된 값들을 문자열로 표현한다는 뜻이다.
 
+```java
+public String toString() {
+	return getClass().getName()+"@"+Integer.toHexString(hashCode());
+}
+```
+
 클래스를 작성할 때 toString()을 오버라이딩하지 않는다면, 위와 같은 내용이 그대로 사용 될 것이다. 즉, toString()을 호출하면 클래스이름과 16진수의 해시코드를 얻게 될 것이다.
 
 ```java
@@ -214,6 +220,12 @@ class Ex9_5 {
 ### 변경 불가능한(immutable) 클래스
 
 String클래스에는 문자열을 저장하기 위해서 문자형 배열 참조변수(char[]) value를 인스턴스 변수로 정의해놓고 있다. 인스턴스 생성 시 생성자의 매개변수로 입력받는 문자열은 이 인스턴스변수(value)에 문자형 배열(char[])로 저장되는 것이다.
+
+```java
+public final class String implements java.io.Serializable, Comparable {
+	private char[] value;
+}
+```
 
 한번 생성된 String인스턴스가 갖고 있는 문자열은 읽어 올 수만 있고, 변경할 수는 없다.
 
@@ -395,6 +407,7 @@ int idx2 = s.indexOf('k');
 
 ```java
 int indexOf(int ch, int pos) // 주어진 문자(ch)가 문자열에 존재하는지 지정된 위치(pos)부터 확인하여 위치(index)를 알려준다. 못 찾으면 -1을 반환한다. (index는 0부터 시작)
+
 String s = "Hello";
 int idx1 = s.indexOf('e', 0);
 int idx2 = s.indexOf('e', 2);
@@ -456,6 +469,7 @@ String[] arr = animals.split(",");
 
 ```java
 String[] split(String regex, int limit) // 문자열을 지정된 분리자(regex)로 나누어 문자열배열에 담아 반환하다. 단, 문자열 전체를 지정된 수(limit)로 자른다.
+
 String animals = "dog,cat,bear";
 String[] arr = animals.split(",", 2);
 
@@ -488,6 +502,7 @@ String p = s.substring(5, 9);
 
 ```java
 String toLowerCase() // String인스턴스에 저장되어있는 모든 문자열을 소문자로 변환하여 반환한다.
+
 String s= "Hello";
 String s1 = s.toLowerCase();
 
@@ -496,6 +511,7 @@ String s1 = s.toLowerCase();
 
 ```java
 String toUpperCase() // String인스턴스에 저장되어있는 모든 문자열을 대문자로 변환하여 반환한다.
+
 String s = "Hello";
 String s1 = s.toUpperCase();
 
@@ -504,6 +520,7 @@ String s1 = s.toUpperCase();
 
 ```java
 String trim() // 문자열의 왼쪽 끝과 오른쪽 끝에 있는 공백을 없앤 결과를 반환한다. 이 때 문자열 중간에 있는 공백은 제거되지 않는다.
+
 String s = " Hello World ";
 String s1 = s.trim();
 
@@ -520,7 +537,7 @@ join()은 여러 문자열 사이에 구분자를 넣어서 결합한다. 구분
 String animals = "dog,cat,bear";
 String[] arr = animals.split(","); // 문자열을 ','를 구분자로 나눠서 배열에 저장
 String str = String.join("-", arr); // 배열의 문자열을 '-'로 구분해서 결합
-System.out.println(str); // dot-cat-bear
+System.out.println(str); // dog-cat-bear
 ```
 
 java.util.StringJoiner클래스를 사용해서 문자열을 결합할 수도 있는데, 사용하는 방법은 간단하다.
@@ -564,19 +581,22 @@ class Ex9_9 {
 
 숫자에 빈 문자열""을 더해주기만 하면된다. 이 외에도 valueOf()를 사용하는 방법도 있다.
 
-**int i = 100;**
+```java
+int i = 100;
+String str1 = i + ""; // 100을 "100"으로 변환하는 방법1
+String str2 = String.valueOf(i); // 100을 "100"으로 변환하는 방법2
+```
 
-**String str1 = i + ""; // 100을 "100"으로 변환하는 방법1**
-
-**String str2 = String.valueOf(i); // 100을 "100"으로 변환하는 방법1**
-
-**int i  = Integer.parseInt("100"); // "100"을 100으로 변환하는 방법1**
-
-**int i2 = Integer.valueOf("100"); // "100"을 100으로 변환하는 방법2**
+```java
+int i  = Integer.parseInt("100"); // "100"을 100으로 변환하는 방법1
+int i2 = Integer.valueOf("100"); // "100"을 100으로 변환하는 방법2
+```
 
 원래 valueOf()의 반환 타입은 int가 아니라 Integer인데, 곧 배울 오토박싱(auto-boxing)에 의해 Integer가 int로 자동 반환된다.
 
-**Integer i2 = Integer.valueOf("100"); // 원래는 반환 타입이 Integer**
+```java
+Integer i2 = Integer.valueOf("100"); // 원래는 반환 타입이 Integer
+```
 
 ```java
 class Ex9_10 {
@@ -618,6 +638,8 @@ public finale class StringBuffer implements java.io.Serializable {
 
 StringBuffer클래스의 인스턴스를 생성할 떄, 적절한 길이의 char형 배열이 생성되고, 이 배열은 문자열을 저장하고 편집하기 위한 공간(buffer)으로 사용된다.
 
+String 
+
 ```java
 public StringBuffer(int length) {
 	value = new char[length];
@@ -639,7 +661,7 @@ public StringBuffer(String str) {
 
 ## StringBuffer의 변경
 
-String과 달리 StringBuffer는 내용을 변경할 수 있다. 예를 들러 아래와 같이 StringBuffer를 생성하였다고 가정하다.
+String과 달리 StringBuffer는 내용을 변경할 수 있다. 예를 들러 아래와 같이 StringBuffer를 생성하였다고 가정하자.
 
 ```java
 StringBuffer sb = new StringBuffer("abc");
@@ -847,5 +869,334 @@ class Ex9_12 {
 ## StringBuilder
 
 StringBuilder는 StringBuffer와 완전히 똑같은 기능으로 작성되어 있어서, 소스코드에서 StringBuffer 대신 StringBuilder를 사용하도록 바꾸기만 하면 된다.
+
+---
+
+## Math클래스
+
+Math클래스는 기본적인 수학계산에 유용한 메서드로 구성되어 있다.
+
+Math클래스의 생성자는 접근 제어자가 private이기 때문에 다른 클래스에서 Math인스턴스를 생성할 수 없도록 되어있다. 그 이유는 클래스 내에 인스턴스변수가 하나도 없어서 인스턴스를 생성할 필요가 없기 때문이다.
+
+### 올림, 버림, 반올림
+
+1. 원래 값에 10을 곱한다.
+
+	90.7552 * 100 -> 9075.52
+
+2. 위의 결과에 Math.round()를 사용한다.
+
+	Math.round(9075.52) -> 90.76
+3. 위의 결과를 다시 100.0으로 나눈다.
+
+	9076 / 100.0 -> 90.76
+	9076 / 100 -> 90
+
+---
+
+## Math의 클래스
+
+```java
+static double abs(double a)
+static float abs(float f)
+static int abs(int f)
+static long abs(long f) // 주어진 값을 절대값을 반환한다.
+
+int i = Math.abs(-10);
+doublie d = Math.abs(-10.0);
+
+// i = 10
+// d = 10.0
+```
+
+```java
+static double ceil(double a) // 주어진 값을 올림하여 반환하다.
+
+double d = Math.ceil(10.1);
+double d2 = Math.ceil(-10.1);
+double d3 = Math.ceil(10.000015);
+
+// d = 11.0
+// d2 = -10.0
+// d3 = 11.0
+```
+
+```java
+static double floor(double a) // 주어진 값을 버림하여 반환한다.
+
+double d = Math.floor(10.8);
+double d2 = Math.floor(-10.8);
+
+// d = 10.0
+// d2 = -11.0
+```
+
+```java
+static double max(double a, double b)
+static float max(float a, float b)
+static int max(int a, int b)
+static long max(long a, long b) // 주어진 두 값을 비교하여 큰 쪽을 반환한다.
+
+double d = Math.max(9.5, 9.50001);
+int 1 = Math.max(O, -1);
+
+// d = 9.50001
+// i = 0
+```
+
+```java
+static double min (double a, double b)
+static float min (float a, float b)
+static int min(int a, int b)
+static long min(long a, long b) // 주어진 두 값을 비교하여 작은 쪽을 반환한다.
+
+double d = Math.min(9.5, 9.50001);
+int 1 = Math.min(O, -1);
+
+// d = 9.5
+// i = -1
+```
+
+```java
+static double rint(double a) // 주어진 double값과 가장 가까운 정수값을 double형으로 반환한다. 단, 두 정수의 정가운데 있는 값(1.5, 2.5, 3.5 등)은 짝수를 반환
+
+double d = Math.rint(1.2);
+double d2 = Math.rint(2.6);
+double d3 = Math.rint(3.5);
+double d4 = Math.rint(4.5);
+
+// d = 1.0
+// d2 = 3.0
+// d3 = 4.0
+// d4 = 4.0
+```
+
+```java
+static long round(double a)
+static long round(float a) // 소수점 첫째자리에서 반올림한 정수값(long)을 반환한다. 두 정수의 정가운데 있는 값은 항상 큰 정수를 반환.(rint()의 결과와 비교)
+
+long l = Math.round(1.2);
+long l2 = Math.round(2.6);
+long l3 = Math.round(3.5);
+long l4 = Math.round(4.5);
+double d = 90.7552;
+double d2 = Math.round(d*100)/100.0;
+
+// l = 1
+// l2 = 3
+// l3 = 4
+// l4 = 5
+// d = 90.7552
+// d2 = 90.76
+```
+
+```java
+import static java.lang.Math.*;
+import static java.lang.System.*;
+
+class Ex9_13 {
+	public static void main(String args[]) {
+		double val = 90.7552;
+		out.println("round("+ val +")="+round(val));// 반올림
+
+		val *= 100;
+		out.println("round("+ val +")="+round(val));// 반올림
+
+		out.println("round("+ val +")/100  =" + round(val)/100);   // 반올림
+		out.println("round("+ val +")/100.0=" + round(val)/100.0); // 반올림
+		out.println();
+		out.printf("ceil(%3.1f)=%3.1f%n",  1.1, ceil(1.1));    // 올림
+		out.printf("floor(%3.1f)=%3.1f%n", 1.5, floor(1.5));   // 버림	
+		out.printf("round(%3.1f)=%d%n",    1.1, round(1.1));   // 반올림
+		out.printf("round(%3.1f)=%d%n",    1.5, round(1.5));   // 반올림
+		out.printf("rint(%3.1f)=%f%n",     1.5, rint(1.5));    // 반올림
+		out.printf("round(%3.1f)=%d%n",   -1.5, round(-1.5));  // 반올림
+		out.printf("rint(%3.1f)=%f%n",    -1.5, rint(-1.5));   // 반올림
+		out.printf("ceil(%3.1f)=%f%n",    -1.5, ceil(-1.5));   // 올림
+		out.printf("floor(%3.1f)=%f%n",   -1.5, floor(-1.5));  // 버림
+	}
+}
+
+// round(90.7552)=91
+// round(9075.52)=9076
+// round(9075.52)/100  =90
+// round(9075.52)/100.0=90.76
+
+// ceil(1.1)=2.0
+// floor(1.5)=1.0
+// round(1.1)=1
+// round(1.5)=2
+// rint(1.5)=2.000000
+// round(-1.5)=-1
+// rint(-1.5)=-2.000000
+// ceil(-1.5)=-1.000000
+// floor(-1.5)=-2.000000
+```
+
+---
+
+## 래퍼(wrapper) 클래스
+
+객체지향 개념에서 모든 것은 객체로 다루어져야 한다. 그러나 자바에서는 8개의 기본형을 객체로 다루지 않는데 이것이 바로 자바가 완전한 객체지향 언어가 아니라는 얘기를 듣는 이유다. 그 대신 보다 높은 성능을 얻을 수 있었다.
+
+때로는 기본형(primitive type) 변수도 어쩔 수 없이 객체로 다뤄야 하는 경우가 있다.
+
+```java
+public final class Integer extends Number implements Comparable {
+		...
+	private in value;
+		...
+}
+```
+
+```java
+class Ex9_14 {
+	public static void main(String[] args) {
+		Integer i  = new Integer(100);
+		Integer i2 = new Integer(100);
+
+		System.out.println("i==i2 ? "+(i==i2));
+		System.out.println("i.equals(i2) ? "+i.equals(i2));
+		System.out.println("i.compareTo(i2)="+i.compareTo(i2));
+		System.out.println("i.toString()="+i.toString());
+
+		System.out.println("MAX_VALUE="+Integer.MAX_VALUE);
+		System.out.println("MIN_VALUE="+Integer.MIN_VALUE);
+		System.out.println("SIZE="+Integer.SIZE+" bits");
+		System.out.println("BYTES="+Integer.BYTES+" bytes");
+		System.out.println("TYPE="+Integer.TYPE);
+	}
+}
+
+// i.compareTo(i2)=0
+// i.toString()=100
+// MAX_VALUE=2147483647
+// MIN_VALUE=-2147483648
+// SIZE=32 bits
+// BYTES=4 bytes
+// TYPE=int
+```
+
+---
+
+## Number클래스
+
+이 클래스는 추상클래스로 내부적으로 숫자를 멤버변수로 갖는 래퍼 클래스들의 조상이다.
+
+- Object
+  - Boolean
+  - Character
+  - Number
+    - Byte
+    - Short
+    - Integer
+    - Long
+    - Float
+    - Double
+    - Biginteger
+    - BigDecimal
+
+---
+
+## 문자열을 숫자로 변환하기
+
+```java
+int i = new Integer("100").intValue();
+int i2 = Integer.parseInt("100"); // 주로 이 방법을 많이 사용.
+int i3 = Integer.valueOf("100");
+```
+
+```java
+class Ex9_15 {
+	public static void main(String[] args) {
+		int		i  = new Integer("100").intValue();
+		int		i2 = Integer.parseInt("100");
+		Integer  i3 = Integer.valueOf("100");
+
+		int i4 = Integer.parseInt("100",2);
+		int i5 = Integer.parseInt("100",8);
+		int i6 = Integer.parseInt("100",16);
+		int i7 = Integer.parseInt("FF", 16);
+//		int i8 = Integer.parseInt("FF");     // NumberFormatException발생
+
+		Integer i9 = Integer.valueOf("100",2);
+		Integer i10 = Integer.valueOf("100",8);
+		Integer i11 = Integer.valueOf("100",16);
+		Integer i12 = Integer.valueOf("FF",16);
+//		Integer i13 = Integer.valueOf("FF"); // NumberFormatException발생
+
+		System.out.println(i);
+		System.out.println(i2);
+		System.out.println(i3);
+		System.out.println("100(2) -> "+i4);
+		System.out.println("100(8) -> "+i5);
+		System.out.println("100(16)-> "+i6);
+		System.out.println("FF(16) -> "+i7);
+
+		System.out.println("100(2) -> "+i9);
+		System.out.println("100(8) -> "+i10);
+		System.out.println("100(16)-> "+i11);
+		System.out.println("FF(16) -> "+i12);
+	}
+}
+
+// 100
+// 100
+// 100
+// 100(2) -> 4
+// 100(8) -> 64
+// 100(16)-> 256
+// FF(16) -> 255
+// 100(2) -> 4
+// 100(8) -> 64
+// 100(16)-> 256
+// FF(16) -> 255
+```
+
+---
+
+## 오토박싱 & 언박싱
+
+```java
+class Ex9_16 {
+	public static void main(String[] args) {
+		int i = 10;
+
+		// 기본형을 참조형으로 형변환(형변환 생략가능)
+		Integer intg = (Integer)i; // Integer intg = Integer.valueOf(i);
+		Object obj = (Object)i;    // Object obj = (Object)Integer.valueOf(i);
+
+		Long     lng = 100L;  // Long lng = new Long(100L);
+
+		int i2 = intg + 10;   // 참조형과 기본형간의 연산 가능
+		long l = intg + lng;  // 참조형 간의 덧셈도 가능
+
+		Integer intg2 = new Integer(20);
+		int i3 = (int)intg2;  // 참조형을 기본형으로 형변환도 가능(형변환 생략가능)
+
+		Integer intg3 = intg2 + i3; 
+
+		System.out.println("i     ="+i);
+		System.out.println("intg  ="+intg);
+		System.out.println("obj   ="+obj);
+		System.out.println("lng   ="+lng);
+		System.out.println("intg + 10  ="+i2);
+		System.out.println("intg + lng ="+l);
+		System.out.println("intg2 ="+intg2);
+		System.out.println("i3    ="+i3);
+		System.out.println("intg2 + i3 ="+intg3);
+	}
+}
+
+// i     =10
+// intg  =10
+// obj   =10
+// lng   =100
+// intg + 10  =20
+// intg + lng =110
+// intg2 =20
+// i3    =20
+// intg2 + i3 =40
+```
 
 ---
