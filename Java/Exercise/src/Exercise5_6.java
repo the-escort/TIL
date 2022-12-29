@@ -1,4 +1,3 @@
-import java.util.Arrays;
 
 public class Exercise5_6 {
 
@@ -13,10 +12,9 @@ public class Exercise5_6 {
 			tmp = ballArr[i];
 			ballArr[i] = ballArr[j];
 			ballArr[j] = tmp;
-
 		}
 
-		// ballArr[0]에서 ball3[0]으로 3개의 데이터를 복
+		// ballArr[0]에서 ball3[0]으로 3개의 데이터를 복사
 		System.arraycopy(ballArr, 0, ball3, 0, 3);
 		
 //		for (int i = 0; i < ball3.length; i++) {
