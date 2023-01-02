@@ -49,7 +49,7 @@
 
 프로그램의 실행도중에 발생하는 에러는 어쩔 수 없지만, 예외는 프로그래머가 이에 대한 처리를 미리 해주어야 한다.
 
-예외처리(exception handling)란, 프로그램 실행 시 발생할 수 이쓴ㄴ 예기치 못한 예외의 발생에 대비한 코드를 작성하는 것이며, 예외처리의 목적은 예외의 발생으로 인한 실행 중인 프로그램의 갑작스런 비정상 종료를 막고, 정상적인 실행상태를 유지할 수 있도록 하는 것이다.
+예외처리(exception handling)란, 프로그램 실행 시 발생할 수 있는 예기치 못한 예외의 발생에 대비한 코드를 작성하는 것이며, 예외처리의 목적은 예외의 발생으로 인한 실행 중인 프로그램의 갑작스런 비정상 종료를 막고, 정상적인 실행상태를 유지할 수 있도록 하는 것이다.
 
 - **예외처리(exception handling)의**
   - **정의** 프로그램 실행 시 발생할 수 있는 예외의 발생에 대비한 코드를 작성하는 것
@@ -76,8 +76,8 @@ class Ex8_1 {
 }
 
 // 1
+// 2
 // 3
-// 5
 // 5
 ```
 
@@ -136,6 +136,8 @@ class Ex8_4 {
 // 6
 ```
 
+try블럭에서 ArithmeticException이 발생하였으므로 instaceof연산자로 catch블럭을 하나씩 차례대로 검사하게 되는데, 첫 번째 검사에서 일치하는 catch블럭을 찾았기 떄문에 두 번째 catch블럭은 검사하지 않게 된다.
+
 ---
 
 ## printStackTrace()와 getMessage()
@@ -160,6 +162,20 @@ try {
     ...
 } catch (ExceptionA | ExceptionB e) {
     e.printStachTrace();
+}
+```
+
+```java
+try {
+	...
+} catch (ExceptionA | ExceptionB e) {
+	e.methodA(); // 에러. ExceptionA에 선언된 methodA()는 호출불가
+
+	if (e instanceof ExceptionA) {
+		ExceptionA e1 = (ExceptionA)e;
+		e1.methodA(); // OK. ExceptionA에 선언된 메서드 호출가능
+	} else { // if(e instanceof ExceptionB)
+		...
 }
 ```
 
@@ -275,7 +291,7 @@ class Ex8_10 {
 
 ---
 
-## finall블럭
+## finally블럭
 
 finally블럭은 예외의 발생여부에 상관없이 실행되어야할 코드를 포함시킬 목적으로 사용된다.
 
