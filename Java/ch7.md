@@ -25,17 +25,17 @@ class Child extends Parent {
 ```java
 class Tv {
 	boolean power; // 전원상태(on/off)
-	int channel;	// 채널
+	int channel; // 채널
 
 	void power()       {   power = !power; }
 	void channelUp()   {   ++channel;      }
 	void channelDown() {   --channel;      }
 }
 
-class SmartTv extends Tv {  // CaptionTv는 Tv에 캡션(자막)을 보여주는 기능을 추가
-	boolean caption;     // 캡션상태(on/off)
+class SmartTv extends Tv { // CaptionTv는 Tv에 캡션(자막)을 보여주는 기능을 추가
+	boolean caption; // 캡션상태(on/off)
 	void displayCaption(String text) {
-		if (caption) {   // 캡션 상태가 on(true)일 때만 text를 보여 준다.
+		if (caption) { // 캡션 상태가 on(true)일 때만 text를 보여 준다.
 			System.out.println(text);
 		}
 	}
@@ -44,8 +44,8 @@ class SmartTv extends Tv {  // CaptionTv는 Tv에 캡션(자막)을 보여주는
 class Ex7_1 {
 	public static void main(String args[]) {
 		SmartTv stv = new SmartTv();
-		stv.channel = 10;			// 조상 클래스로부터 상속받은 멤버
-		stv.channelUp();			// 조상 클래스로부터 상속받은 멤버
+		stv.channel = 10; // 조상 클래스로부터 상속받은 멤버
+		stv.channelUp(); // 조상 클래스로부터 상속받은 멤버
 		System.out.println(stv.channel);
 		stv.displayCaption("Hello, World");
 		stv.caption = true;	// 캡션(자막) 기능을 켠다.	       
@@ -486,7 +486,7 @@ void doWork(Car c) {
 
 ```java
 class Product {
-	int price;			// 제품의 가격
+	int price; // 제품의 가격
 	int bonusPoint;	// 제품구매 시 제공하는 보너스점수
 
 	Product(int price) {
@@ -498,7 +498,7 @@ class Product {
 class Tv1 extends Product {
 	Tv1() {
 		// 조상클래스의 생성자 Product(int price)를 호출한다.
-		super(100);		// Tv의 가격을 100만원으로 한다.
+		super(100);	// Tv의 가격을 100만원으로 한다.
 	}
 
 	// Object클래스의 toString()을 오버라이딩한다.
@@ -511,8 +511,8 @@ class Computer extends Product {
 	public String toString() { return "Computer"; }
 }
 
-class Buyer {	// 고객, 물건을 사는 사람
-	int money = 1000;	  // 소유금액
+class Buyer { // 고객, 물건을 사는 사람
+	int money = 1000; // 소유금액
 	int bonusPoint = 0; // 보너스점수
 
 	void buy(Product p) {
@@ -521,8 +521,8 @@ class Buyer {	// 고객, 물건을 사는 사람
 			return;
 		}
 
-		money -= p.price;            // 가진 돈에서 구입한 제품의 가격을 뺀다.
-		bonusPoint += p.bonusPoint;  // 제품의 보너스 점수를 추가한다.
+		money -= p.price; // 가진 돈에서 구입한 제품의 가격을 뺀다.
+		bonusPoint += p.bonusPoint; // 제품의 보너스 점수를 추가한다.
 		System.out.println(p + "을/를 구입하셨습니다.");
 	}
 }
@@ -566,7 +566,7 @@ p[2] = new Audio();
 
 ```java
 class Product2 {
-	int price;			// 제품의 가격
+	int price; // 제품의 가격
 	int bonusPoint;	// 제품구매 시 제공하는 보너스점수
 
 	Product2(int price) {
@@ -593,11 +593,11 @@ class Audio2 extends Product2 {
 	public String toString() { return "Audio"; }
 }
 
-class Buyer2 {			  // 고객, 물건을 사는 사람
-	int money = 1000;	  // 소유금액
+class Buyer2 { // 고객, 물건을 사는 사람
+	int money = 1000; // 소유금액
 	int bonusPoint = 0; // 보너스점수
 	Product2[] cart = new Product2[10];   // 구입한 제품을 저장하기 위한 배열
-	int i =0;			  // Product배열에 사용될 카운터
+	int i = 0; // Product배열에 사용될 카운터
 
 	void buy(Product2 p) {
 		if(money < p.price) {
@@ -605,15 +605,15 @@ class Buyer2 {			  // 고객, 물건을 사는 사람
 			return;
 		}
 
-		money -= p.price;             // 가진 돈에서 구입한 제품의 가격을 뺀다.
-		bonusPoint += p.bonusPoint;   // 제품의 보너스 점수를 추가한다.
-		cart[i++] = p;                // 제품을 Product[] cart에 저장한다.
+		money -= p.price; // 가진 돈에서 구입한 제품의 가격을 뺀다.
+		bonusPoint += p.bonusPoint; // 제품의 보너스 점수를 추가한다.
+		cart[i++] = p; // 제품을 Product[] cart에 저장한다.
 		System.out.println(p + "을/를 구입하셨습니다.");
 	}
-// 뒷 페이지에 계속됩니다.
-	void summary() {	              // 구매한 물품에 대한 정보를 요약해서 보여 준다.
-		int sum = 0;                 // 구입한 물품의 가격합계
-		String itemList ="";         // 구입한 물품목록
+
+	void summary() { // 구매한 물품에 대한 정보를 요약해서 보여 준다.
+		int sum = 0; // 구입한 물품의 가격합계
+		String itemList = ""; // 구입한 물품목록
 
 		// 반복문을 이용해서 구입한 물품의 총 가격과 목록을 만든다.
 		for(int i=0; i<cart.length;i++) {
@@ -667,7 +667,7 @@ abstract class 클래스이름 {
 
 ## 추상 메서드(abstract method)
 
-선언부만 작성하고 구현부는 작성하지 않은 채고 남겨 둔 것이 추상메서드이다.
+선언부만 작성하고 구현부는 작성하지 않은 채로 남겨 둔 것이 추상메서드이다.
 
 메서드를 이와 같이 미완성 상태로 남겨 놓는 이유는 메서드의 내용이 상속받는 클래스에 따라 달라질 수 있기 때문에 조상 클래스에서는 선언부만을 작성하고, 주석을 덧붙여 어떤 기능을 수행할 목적으로 작성되었는지 알려 주고, 실제 내용은 상속받는 클래스에서 구현하도록 비워 두는 것이다. 그래서 추상클래스를 상속받는 자손 클래스는 조상의 추상메서드를 상황에 맞게 적절히 구현해주어야 한다.
 
@@ -753,6 +753,8 @@ class Dropship extends Unit { // 수송선
 
 추상클래스를 부분적으로만 완성된 '미완성 설계도'라고 한다면, 인터페이스는 구현된 것은 아무 것도 없고 밑그림만 그려져 있는 '기본 설계도'라 할 수 있다.
 
+인터페이스도 추상클래스처럼 완성되지 않은 불완전한 것이기 때문에 그 자체만으로 사용되기 보다는 다른 클래스를 작성하는데 도움 줄 목적으로 작성된다.
+
 ```java
 interface 인터페이스이름 {
 	public static final 타입 상수이름 = 값;
@@ -830,7 +832,7 @@ class 클래스이름 implements 인터페이스이름 {
 
 디폴트 메서드는 앞에 키워드 default를 붙이며, 추상 메서드와 달리 일반 메서드처럼 몸통{}이 있어야 한다. 디폴트 메서드 역시 접근 제어자가 public이며, 생략가능하다.
 
-1. **여려 인터페이스의 디폴트 메서드 간의 충돌**
+1. **여러 인터페이스의 디폴트 메서드 간의 충돌**
 	- 인터페이스를 구현한 클래스에서 디폴트 메서드를 오버라이딩해야 한다.
 2. **디폴트 메서드와 조상 클래스의 메서드 간의 충돌**
 	- 조상 클래스의 메서드가 상속되고, 디폴트 메서드는 무시된다.
