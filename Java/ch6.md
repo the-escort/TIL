@@ -8,13 +8,13 @@
 
 2. **코드의 관리가 용이하다.**
 	
-	코드간의 관계르 이용해서 적은 노력으로 쉽게 코드를 변경할 수 있다.
+	코드간의 관계를 이용해서 적은 노력으로 쉽게 코드를 변경할 수 있다.
 
 3. **신뢰성이 높은 프로그래밍을 가능하게 한다.**
 	
 	제어자와 메서드를 이용해서 데이터를 보호하고 올바른 값을 유지하도록 하며, 코드의 중복을 제거하여 코드의 불일치로 인한 오동작을 방지할 수 있다.
 
-**객체지향개념을 학습할 떄 재사용성과 유지보수 그리고 중복된 코드의 제거, 이 세 가지 관점에서 보면 보다 쉽게 이해할 수 있을 것이다.**
+**객체지향개념을 학습할 때 재사용성과 유지보수 그리고 중복된 코드의 제거, 이 세 가지 관점에서 보면 보다 쉽게 이해할 수 있을 것이다.**
 
 **너무 객체지향개념에 얽매여서 고민하기 보다는 일단 프로그램을 기능적으로 완성한 다음 어떻게 하면 보다 객체지향적으로 코드를 개선할 수 있을지를 고민하여 점차 개선해 나가는 것이 좋다.**
 
@@ -79,7 +79,7 @@ class Tv {
 
 클래스로부터 객체를 만드는 과정을 클래스의 인스턴스화(instantiate)라고 하며, 어떤 클래스로부터 만들어진 객체를 그 클래스의 인스턴스(instance)라고 한다.
 
-예를 들면, Tv클래스로부터 만들어진 Tv클래스의 인스턴스라고 한다. 결국 인스턴스는 객체와 같은 의미이지만, 객체는 모든 인스턴스를 대표하는 포괄적인 의미를 갖고 있으며, 인스턴스는 어떤 클래스로부터 만들어진 것인지를 보다 강조하는 의미를 갖고 있다.
+예를 들면, Tv클래스로부터 만들어진 객체를 Tv클래스의 인스턴스라고 한다. 결국 인스턴스는 객체와 같은 의미이지만, 객체는 모든 인스턴스를 대표하는 포괄적인 의미를 갖고 있으며, 인스턴스는 어떤 클래스로부터 만들어진 것인지를 보다 강조하는 의미를 갖고 있다.
 
 - **클래스 -> 인스턴스화 -> 인스턴스(객체)**
 
@@ -153,10 +153,10 @@ class Ex6_2 {
 ## 객체배열
 
 ```java
-**Tv[] tvArr = new Tv[3];** // 길이가 3인 Tv타입의 참조변수 배열
+Tv[] tvArr = new Tv[3]; // 길이가 3인 Tv타입의 참조변수 배열
 
-tvArr -> tvArr[0] tvArr[1] tvArr[2]
-			null	null	null
+tvArr = tvArr[0] tvArr[1]tvArr[2]
+		null	null	null
 ```
 
 위의 그림에서 알 수 있듯이 객체 배열을 생성하는 것은, 그저 객체를 다루기 위한 참조변수들이 만들어진 것일 뿐, 아직 객체가 저장되지 않았다. 객체를 생성해서 객체 배열의 각 요소에 저장하는 것을 잊으면 안 된다.
@@ -203,7 +203,7 @@ class Variables { // 클래스 영역
 |:---:|:---:|:---:|
 |클래스 변수|클래스 영역|클래스가 메모리에 올라갈 때|
 |인스턴스 변수|클래스 영역|인스턴스가 생성되었을 때|
-|지역변수|클래스 영역 이외의 영역|변수 선언문이 수행되었을 때|
+|지역변수|클래스 영역 이외의 영역<br>(메서드, 생성자, 초기화 블럭 내부)|변수 선언문이 수행되었을 때|
 
 1. **인스턴스 변수(instance variable)** - 클래스 영역에 선언되며, 인스턴스를 생성할 때 만들어진다. 그래서 인스턴스 변수(iv)의 값을 읽어 오거나 저장하려면 먼저 인스턴스를 생성해야 한다. 인스턴스마다 고유한 상태를 유지해야한는 속성의 경우, 인스턴스 변수로 선언한다.
 
@@ -338,7 +338,7 @@ int multiply(int x, int y) {
 
 ```java
 public static void main(String[] args) {
-			// 인수(argument, 원본)
+		// 인수(argument, 원본)
     int result = add(3, 5); // 메서드 호출
 }
 ```
@@ -476,7 +476,7 @@ class Ex6_6 {
 		System.out.println("main() : x = " + d.x);
 	}
 
-	static void change(int x) {  // 기본형 매개변수
+	static void change(int x) { // 기본형 매개변수
 		x = 1000;
 		System.out.println("change() : x = " + x);
 	}
@@ -544,11 +544,11 @@ class Ex6_8 {
 	}
 
 	static Data3 copy(Data3 d) {
-		Data3 tmp = new Data3();    // 새로운 객체 tmp를 생성한다.
+		Data3 tmp = new Data3(); // 새로운 객체 tmp를 생성한다.
 
-		tmp.x = d.x;  // d.x의 값을 tmp.x에 복사한다.
+		tmp.x = d.x; // d.x의 값을 tmp.x에 복사한다.
 
-		return tmp;   // 복사한 객체의 주소를 반환한다.
+		return tmp;  // 복사한 객체의 주소를 반환한다.
 	}
 }
 
@@ -568,15 +568,15 @@ class MyMath2 {
 	long a, b;
 
 	// 인스턴스 변수 a, b만을 이용해서 작업하므로 매개변수가 필요없다.
-	long add()		{ return a + b; }  // a, b는 인스턴스 변수
+	long add() { return a + b; }  // a, b는 인스턴스 변수
 	long subtract() { return a - b; }
 	long multiply() { return a * b; }
 	double divide() { return a / b; }
 
 	// 인스턴스 변수와 관계없이 매개변수만으로 작업이 가능하다.
-	static long   add(long a, long b)		 { return a + b; }  // a, b는 지역변수
-	static long   subtract(long a, long b)   { return a - b; }
-	static long   multiply(long a, long b)   { return a * b; }
+	static long   add(long a, long b) { return a + b; }  // a, b는 지역변수
+	static long   subtract(long a, long b) { return a - b; }
+	static long   multiply(long a, long b) { return a * b; }
 	static double divide(long a, long b) { return a / (double)b; }
 	
 }
@@ -726,7 +726,7 @@ class MyMath3 {
 		return a+b;
 	}
 
-	int add(int[] a) {		// 배열의 모든 요소의 합을 결과로 돌려준다.
+	int add(int[] a) { // 배열의 모든 요소의 합을 결과로 돌려준다.
 		System.out.print("int add(int[] a) - ");
 		int result = 0;  
 		for(int i=0; i < a.length;i++) 
@@ -836,7 +836,7 @@ class Car {
 class Ex6_12 {
 	public static void main(String[] args) {
 		Car c1 = new Car();
-		c1.color    = "white";
+		c1.color = "white";
 		c1.gearType = "auto";
 		c1.door = 4;
 
@@ -862,12 +862,11 @@ class Ex6_12 {
 
 ```java
 class Car2 {
-	String color;		// 색상
-	String gearType;	// 변속기 종류 - auto(자동), manual(수동)
-	int door;			// 문의 개수
+	String color; // 색상
+	String gearType; // 변속기 종류 - auto(자동), manual(수동)
+	int door; // 문의 개수
 
-	Car2() {
-		this("white", "auto", 4);
+	Car2() {this("white", "auto", 4);
 	}
 
 	Car2(String color) {
