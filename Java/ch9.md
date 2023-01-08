@@ -605,7 +605,7 @@ class Ex9_10 {
 		String strVal = String.valueOf(iVal); // int를 String으로 변환한다.
 		
 		double dVal = 200.0;
-		String strVal2 = dVal + "";	// int를 String으로 변화하는 또 다른 방법
+		String strVal2 = dVal + ""; // int를 String으로 변화하는 또 다른 방법
 
 		double sum  = Integer.parseInt(+strVal)
                                           + Double.parseDouble(strVal2);
@@ -667,7 +667,11 @@ String과 달리 StringBuffer는 내용을 변경할 수 있다. 예를 들러 �
 StringBuffer sb = new StringBuffer("abc");
 
 sb.append("123"); // sb의 내용 뒤에 "123"을 추가한다.
+```
 
+append()는 반환타입이 StringBuffer인데 자신의 주소를 반환한다.
+
+```java
 StringBuffer sb2 = sb.append("ZZ"); // sb의 내용뒤에 "ZZ"를 추가한다.
 System.our.println(sb); // abc123ZZ
 System.our.println(sb2); // abc123ZZ
@@ -1068,6 +1072,8 @@ class Ex9_14 {
 	}
 }
 
+// i==i2 ? false
+// i.equals(i2) ? true
 // i.compareTo(i2)=0
 // i.toString()=100
 // MAX_VALUE=2147483647
@@ -1109,15 +1115,15 @@ int i3 = Integer.valueOf("100");
 ```java
 class Ex9_15 {
 	public static void main(String[] args) {
-		int		i  = new Integer("100").intValue();
-		int		i2 = Integer.parseInt("100");
-		Integer  i3 = Integer.valueOf("100");
+		int	i  = new Integer("100").intValue();
+		int	i2 = Integer.parseInt("100");
+		Integer i3 = Integer.valueOf("100");
 
 		int i4 = Integer.parseInt("100",2);
 		int i5 = Integer.parseInt("100",8);
 		int i6 = Integer.parseInt("100",16);
 		int i7 = Integer.parseInt("FF", 16);
-//		int i8 = Integer.parseInt("FF");     // NumberFormatException발생
+//		int i8 = Integer.parseInt("FF"); // NumberFormatException발생
 
 		Integer i9 = Integer.valueOf("100",2);
 		Integer i10 = Integer.valueOf("100",8);
@@ -1164,15 +1170,15 @@ class Ex9_16 {
 
 		// 기본형을 참조형으로 형변환(형변환 생략가능)
 		Integer intg = (Integer)i; // Integer intg = Integer.valueOf(i);
-		Object obj = (Object)i;    // Object obj = (Object)Integer.valueOf(i);
+		Object obj = (Object)i; // Object obj = (Object)Integer.valueOf(i);
 
-		Long     lng = 100L;  // Long lng = new Long(100L);
+		Long lng = 100L; // Long lng = new Long(100L);
 
-		int i2 = intg + 10;   // 참조형과 기본형간의 연산 가능
-		long l = intg + lng;  // 참조형 간의 덧셈도 가능
+		int i2 = intg + 10; // 참조형과 기본형간의 연산 가능
+		long l = intg + lng; // 참조형 간의 덧셈도 가능
 
 		Integer intg2 = new Integer(20);
-		int i3 = (int)intg2;  // 참조형을 기본형으로 형변환도 가능(형변환 생략가능)
+		int i3 = (int)intg2; // 참조형을 기본형으로 형변환도 가능(형변환 생략가능)
 
 		Integer intg3 = intg2 + i3; 
 
