@@ -18,8 +18,8 @@
 
 ||XML|Java Config|
 |:---:|:---:|:---:|
-|non-Web|GenericXmal**ApplicationContext**|AnnotaionConfig**ApplicationContext**|
-|Web|Xml**WebApplicationContext**|AnnotaionConfig**WebApplicationContext**|
+|non-Web|GenericXml**ApplicationContext**|AnnotationConfig**ApplicationContext**|
+|Web|Xml**WebApplicationContext**|AnnotationConfig**WebApplicationContext**|
 
 ---
 
