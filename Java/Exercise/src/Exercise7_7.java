@@ -2,7 +2,7 @@
 public class Exercise7_7 {
 
 	public static void main(String args[]) {
-		Outer.Inner ii= new Outer.Inner();
+		Outer.Inner ii = new Outer.Inner();
 		
 		System.out.println(ii.iv);
 		

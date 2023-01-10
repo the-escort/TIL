@@ -32,7 +32,7 @@ class MyTv2 {
 	}
 
 	public void setChannel(int channel) {
-		if (channel > MAX_VOLUME || channel < MIN_CHANNEL) {
+		if (channel > MAX_CHANNEL || channel < MIN_CHANNEL) {
 			return;
 		}
 
@@ -45,7 +45,7 @@ class MyTv2 {
 	}
 
 	public void setVolume(int volume) {
-		if (volume > MAX_VOLUME || volume < MIN_CHANNEL) {
+		if (volume > MAX_VOLUME || volume < MIN_VOLUME) {
 			return;
 		}
 
