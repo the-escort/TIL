@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id = "jazz" class = "com.escort.ch3.Jazz">
+        <property name="standard" value="So What"/>
+        <property name="year" value="1959"/>
+        <property name="genre" ref="genre"/>
+        <property name="musicians">
+            <array value-type="com.escort.ch3.Musician">
+                <ref bean="musician"/>
+                <ref bean="musician"/>
+            </array>
+        </property>
+    </bean>
+    <bean id = "genre" class = "com.escort.ch3.Genre"/>
+    <bean id = "musician" class = "com.escort.ch3.Musician" scope="prototype"/>
+
+</beans>
