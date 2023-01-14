@@ -4,14 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="89ead5c7-e9fd-4a6d-a1ef-6a96e1c9d30b" name="Changes" comment="" />
+    <list default="true" id="89ead5c7-e9fd-4a6d-a1ef-6a96e1c9d30b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/escort/ch3/SpringDiTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/escort/ch3/SpringDiTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/spring/root-context.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/spring/root-context.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JUnit4 Test Class" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -26,6 +42,9 @@
     </option>
   </component>
   <component name="ProjectId" id="2KHovTN75ecaLtk8AmOzlSNfqkb" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -35,26 +54,42 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit4",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4": "",
     "last_opened_file_path": "/Users/yeosong/Documents/git/TIL/Spring/ch3",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "preferences.keymap",
     "spring.configuration.checksum": "b9869bec82b6ab24d914fdba43450a1e",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.escort.ch3" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java/com/escort/ch3" />
     </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.escort.ch3" />
+    </key>
   </component>
-  <component name="RunManager">
-    <configuration name="SpringDiTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.escort.ch3.SpringDiTest" />
+  <component name="RunManager" selected="JUnit.DBConnectionTestTest">
+    <configuration name="DBConnectionTestTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ch3" />
       <extension name="coverage">
         <pattern>
@@ -62,13 +97,84 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="com.escort.ch3" />
+      <option name="MAIN_CLASS_NAME" value="com.escort.ch3.DBConnectionTestTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DBConnectionTestTest.deleteUserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ch3" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.escort.ch3.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.escort.ch3" />
+      <option name="MAIN_CLASS_NAME" value="com.escort.ch3.DBConnectionTestTest" />
+      <option name="METHOD_NAME" value="deleteUserTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DBConnectionTestTest.insertUserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ch3" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.escort.ch3.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.escort.ch3" />
+      <option name="MAIN_CLASS_NAME" value="com.escort.ch3.DBConnectionTestTest" />
+      <option name="METHOD_NAME" value="insertUserTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DBConnectionTestTest.selectUserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ch3" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.escort.ch3.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.escort.ch3" />
+      <option name="MAIN_CLASS_NAME" value="com.escort.ch3.DBConnectionTestTest" />
+      <option name="METHOD_NAME" value="selectUserTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DBConnectionTestTest.springJdbcConnectionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ch3" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.escort.ch3.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.escort.ch3" />
+      <option name="MAIN_CLASS_NAME" value="com.escort.ch3.DBConnectionTestTest" />
+      <option name="METHOD_NAME" value="springJdbcConnectionTest" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.SpringDiTest" />
+        <item itemvalue="JUnit.DBConnectionTestTest" />
+        <item itemvalue="JUnit.DBConnectionTestTest.deleteUserTest" />
+        <item itemvalue="JUnit.DBConnectionTestTest.selectUserTest" />
+        <item itemvalue="JUnit.DBConnectionTestTest.insertUserTest" />
+        <item itemvalue="JUnit.DBConnectionTestTest.springJdbcConnectionTest" />
       </list>
     </recent_temporary>
   </component>
@@ -84,10 +190,27 @@
       <workItem from="1673641995610" duration="45000" />
       <workItem from="1673669604299" duration="2000" />
       <workItem from="1673669609030" duration="73000" />
+      <workItem from="1673672329919" duration="4573000" />
+      <workItem from="1673722424893" duration="9126000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/escort/ch3/DBConnectionTestTest.java</url>
+          <line>20</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
