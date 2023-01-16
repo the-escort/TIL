@@ -11,8 +11,6 @@
   <component name="ChangeListManager">
     <list default="true" id="89ead5c7-e9fd-4a6d-a1ef-6a96e1c9d30b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/escort/ch3/DBConnectionTestTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/escort/ch3/DBConnectionTestTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,10 +21,10 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="JUnit4 Test Class" />
         <option value="CSS File" />
         <option value="Jsp File" />
         <option value="Class" />
+        <option value="JUnit4 Test Class" />
       </list>
     </option>
   </component>
@@ -111,7 +109,7 @@
       <recent name="com.escort.ch3" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.AopMain2">
+  <component name="RunManager" selected="JUnit.A1DaoTest.insertTest">
     <configuration name="AopMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.escort.ch3.aop.AopMain" />
       <module name="ch3" />
@@ -138,6 +136,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="A1DaoTest.insertTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ch3" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.escort.ch3.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.escort.ch3" />
+      <option name="MAIN_CLASS_NAME" value="com.escort.ch3.A1DaoTest" />
+      <option name="METHOD_NAME" value="insertTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="DBConnectionTestTest.transactionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ch3" />
       <extension name="coverage">
@@ -150,21 +164,6 @@
       <option name="MAIN_CLASS_NAME" value="com.escort.ch3.DBConnectionTestTest" />
       <option name="METHOD_NAME" value="transactionTest" />
       <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UserDaoImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ch3" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.escort.ch3.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.escort.ch3" />
-      <option name="MAIN_CLASS_NAME" value="com.escort.ch3.UserDaoImplTest" />
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -276,18 +275,18 @@
     <list>
       <item itemvalue="Application.AopMain" />
       <item itemvalue="Application.AopMain2" />
+      <item itemvalue="JUnit.A1DaoTest.insertTest" />
       <item itemvalue="JUnit.DBConnectionTestTest.transactionTest" />
-      <item itemvalue="JUnit.UserDaoImplTest" />
       <item itemvalue="JUnit.UserDaoImplTest.updateUser" />
       <item itemvalue="Tomcat Server.Tomcat 9.0.52" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.A1DaoTest.insertTest" />
         <item itemvalue="Application.AopMain2" />
         <item itemvalue="Application.AopMain" />
         <item itemvalue="JUnit.DBConnectionTestTest.transactionTest" />
         <item itemvalue="JUnit.UserDaoImplTest.updateUser" />
-        <item itemvalue="JUnit.UserDaoImplTest" />
       </list>
     </recent_temporary>
   </component>
@@ -305,7 +304,7 @@
       <workItem from="1673669609030" duration="73000" />
       <workItem from="1673672329919" duration="4573000" />
       <workItem from="1673722424893" duration="10406000" />
-      <workItem from="1673784864235" duration="10159000" />
+      <workItem from="1673784864235" duration="12295000" />
     </task>
     <servers />
   </component>
