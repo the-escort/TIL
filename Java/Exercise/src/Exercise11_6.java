@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -15,8 +13,8 @@ public class Exercise11_6 {
 
 //		Iterator it = set.iterator();
 
-		ArrayList list = new ArrayList(set);
-		Collections.shuffle(list);
+		ArrayList list = new ArrayList(set); // set과 같은 데이터를 가진 ArrayList를 생성
+		Collections.shuffle(list); // list에 저장된 데이터의 순서를 섞는다.
 
 		Iterator it = list.iterator();
 
