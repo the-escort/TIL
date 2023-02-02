@@ -78,6 +78,20 @@ DI(Dependency Injection)
 - \<component-scan\>로 @Component가 클래스를 자동 검색해서 빈으로 등록
 - @Controller, @Service, @Repository, @ControllerAdvice의 메타 애너테이션
 
+```java
+<context:component-scan base-package="com.fastcampus.ch3"/>
+````
+
+```java
+package com.fastcampus.ch3;
+import org.springframework.stereotype.*;
+
+// <bean id="superEngine" class="com.fastcampus.ch3.SuperEngine"/>
+// @Component("superEngine")
+   @Component
+   class SuperEngine extends Engine {}
+```
+
 ### @Value, @PropertySource
 
 ---
