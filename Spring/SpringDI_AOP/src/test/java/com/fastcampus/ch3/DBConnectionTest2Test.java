@@ -139,7 +139,7 @@ public class DBConnectionTest2Test {
             conn.rollback();
             e.printStackTrace();
         } finally {
-            
+
         }
     }
 
