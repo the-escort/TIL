@@ -13,6 +13,7 @@ import java.sql.Connection;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 
 import static org.junit.Assert.*;
@@ -107,6 +108,39 @@ public class DBConnectionTest2Test {
 
         PreparedStatement pstmt = conn.prepareStatement(sql); // SQL Injection 공격, 성능향상
         pstmt.executeUpdate(); // insert, delete, update
+    }
+
+    @Test
+    public void transactionTest() throws Exception {
+        Connection conn = null;
+
+        try {
+            deleteAll();
+            conn = ds.getConnection();
+            conn.setAutoCommit(false); // conn.setAutoCommit(true);
+
+            String sql = "insert into user_info values (?, ?, ?, ?, ?, ?, now())";
+
+            PreparedStatement pstmt = conn.prepareStatement(sql); // SQL Injection 공격, 성능향상
+            pstmt.setString(1, "asdf");
+            pstmt.setString(2, "1234");
+            pstmt.setString(3, "abc");
+            pstmt.setString(4, "aaa@aaa.com");
+            pstmt.setDate(5, new java.sql.Date(new Date().getTime()));
+            pstmt.setString(6, "fb");
+
+            int rowCnt = pstmt.executeUpdate(); // insert, delete, update
+
+            pstmt.setString(1, "asdf");
+            rowCnt = pstmt.executeUpdate();
+
+            conn.commit();
+        } catch (Exception e) {
+            conn.rollback();
+            e.printStackTrace();
+        } finally {
+            
+        }
     }
 
     // 사용자 정보를 user_info 테이블에 저장하는 메서드
