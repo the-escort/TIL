@@ -20,7 +20,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public int deleteUser(String id) throws Exception {
         int rowCnt = 0;
-        String sql = "DELETE FROM user_info WHERE id= ? ";
+        String sql = "DELETE FROM user_info WHERE id= ?  ";
 
         try (  // try-with-resources - since jdk7
                Connection conn = ds.getConnection();
