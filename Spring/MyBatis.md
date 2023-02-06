@@ -15,13 +15,13 @@
 
 ```java
 <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource"/>
-        <property name="mapperLocations" value="classpath:mapper/*Mapper.xml"/>
-	</bean>
+	<property name="dataSource" ref="dataSource"/>
+	<property name="mapperLocations" value="classpath:mapper/*Mapper.xml"/>
+</bean>
 
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg ref="sqlSessionFactory"/>
-	</bean>
+<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+	<constructor-arg ref="sqlSessionFactory"/>
+</bean>
 ```
 
 ---
@@ -57,11 +57,10 @@ create table board (
 
 ```java
 <mapper namespace="com.fastcampus.ch4.dao.BoardMapper">
-	<select id="select" parameterType="int" resultType= "BoardDto">
-		SELECT bno, title, content, writer
-			, view_cnt, comment_cnt, reg_date
-			FROM board
-			WHERE bno = #{bno}
+	<select id="select" parameterType="int" resultType="BoardDto">
+		SELECT bno, title, content, writer, view_cnt, comment_cnt, reg_date
+		FROM board
+		WHERE bno = #{bno}
 	</select>
 ```
 
