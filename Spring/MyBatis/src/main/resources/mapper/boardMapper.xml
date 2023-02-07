@@ -16,7 +16,7 @@
     </insert>
 
     <update id="update" parameterType="BoardDto">
-        UPDATE board SET title = #{title}, content = #{content}, up_date = now() WHERE bno = #{bno}
+        UPDATE board SET title = #{title}, content = #{content}, up_date = now() WHERE bno = #{bno} and writer = #{writer}
     </update>
 
     <delete id="delete" parameterType="map">
