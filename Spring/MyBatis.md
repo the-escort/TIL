@@ -13,7 +13,7 @@
 - SqlSessionFactoryBean - SqlSessionFactory를 Spring에서 사용하기 위한 빈
 - SqlSessionTemplate - SQL명령을 수행하는데 필요한 메서드 제공. thread-safe
 
-```java
+```xml
 <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 	<property name="dataSource" ref="dataSource"/>
 	<property name="mapperLocations" value="classpath:mapper/*Mapper.xml"/>
@@ -55,7 +55,7 @@ create table board (
 
 2. Mapper XML & DTO 작성
 
-```java
+```xml
 <mapper namespace="com.fastcampus.ch4.dao.BoardMapper">
 	<select id="select" parameterType="int" resultType="BoardDto">
 		SELECT bno, title, content, writer, view_cnt, comment_cnt, reg_date
@@ -114,5 +114,95 @@ public class BoardDto {
 ```
 
 ![DTO](DTO.png)
+
+---
+
+### \<sql\>, \<include\>
+
+- 공통 부분을 \<sql\>로 정의하고 \<include\>로 포함시켜 재사용
+
+
+```xml
+<sql id="selectFromBoard">
+	SELECT bno, title, content, writer, view_cnt, comment_cnt, reg_date
+	FROM board
+</sql>
+```
+
+```xml
+<select id="select" parameterType="int" resultType= "BoardDto">
+	<include refid="selectFromBoard"/>
+	WHERE bno = #{bno}
+</select>
+
+<select id="selectPage" parameterType="map" resultType="BoardDto">
+	<include refid="selectFromBoard"/>
+	ORDER BY reg_date DESC, bno DESC
+	LIMIT #{offset}, #{pageSize}
+</select>
+```
+
+### \<if\>
+
+```xml
+<select id="searchResultnt" parameterType="SearchCondition" resultType="int">
+	SELECT count (*)
+	FROM board
+	WHERE true
+	<if test='option=="A"'>
+		AND (title LIKE concat('%', #{keyword}, '%')
+		OR content LIKE concat('%', #{keyword}, '%'))
+	</if>
+	<if test='option=="T"'>
+		AND title LIKE concat('%', #{keyword}, '%')
+	</if>
+	<if test='option=="W"'>
+		AND writer LIKE concat('%', #{keyword}, '%')
+	</if>
+</select>
+```
+
+### \<choose\>, \<when\>
+
+```xml
+<select id="searchResultnt" parameterType="SearchCondition" resultType="int">
+	SELECT count (*)
+	FROM board
+	WHERE true
+	<choose>
+		<when test='option=="A"'>
+			AND (title LIKE concat('%', #{keyword}, '%')
+			OR content LIKE concat('%', #{keyword}, '%'))
+		</when>
+		<when test='option=="T"'>
+			AND title LIKE concat('%', #{keyword}, '%')
+		</when>
+		<otherwise>
+			AND (title LIKE concat('%', #{keyword}, '%')
+			OR content LIKE concat('%', #{keyword}, '%'))
+		</otherwise>
+	</choose>	
+</select>
+```
+
+### \<foreach\>
+
+```xml
+<select id="getSelected" resultType="BoardDto">
+	SELECT bno, title, content, writer, view_cnt, comment_ct, reg_date
+	FROM board
+	WHERE bno IN
+	<foreach collection="array" item="bno" open="(" close=")" separator=", ">
+		#{bno}
+	</foreach>
+	ORDER BY reg_date DESC, bno DESC
+</select>
+```
+
+```java
+public List<BoardDto> getSelected(Integer[] bnoArr) throws Exception {
+	return session.selectList(namespace + "getSelectd", bnoArr);
+}
+```
 
 ---
