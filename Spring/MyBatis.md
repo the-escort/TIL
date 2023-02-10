@@ -192,7 +192,7 @@ public class BoardDto {
 	SELECT bno, title, content, writer, view_cnt, comment_ct, reg_date
 	FROM board
 	WHERE bno IN
-	<foreach collection="array" item="bno" open="(" close=")" separator=", ">
+	<foreach collection="array" item="bno" open="(" close=")" separator=",">
 		#{bno}
 	</foreach>
 	ORDER BY reg_date DESC, bno DESC
