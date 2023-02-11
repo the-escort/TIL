@@ -4,7 +4,7 @@
 
 <mapper namespace="com.fastcampus.ch4.dao.BoardMapper">
     <select id="select" parameterType="int" resultType="BoardDto">
-        SELECT bno, title, content, writer, reg_date FROM board WHERE bno = #{bno}
+        SELECT bno, title, content, writer, view_cnt, comment_cnt, reg_date FROM board WHERE bno = #{bno}
     </select>
 
     <select id="count" resultType="int">
