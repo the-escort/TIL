@@ -189,7 +189,7 @@ public class BoardDto {
 
 ```xml
 <select id="getSelected" resultType="BoardDto">
-	SELECT bno, title, content, writer, view_cnt, comment_ct, reg_date
+	SELECT bno, title, content, writer, view_cnt, comment_cnt, reg_date
 	FROM board
 	WHERE bno IN
 	<foreach collection="array" item="bno" open="(" close=")" separator=",">
@@ -203,6 +203,10 @@ public class BoardDto {
 public List<BoardDto> getSelected(Integer[] bnoArr) throws Exception {
 	return session.selectList(namespace + "getSelectd", bnoArr);
 }
+```
+
+```java
+List<BoardDto> list = boardDao.getSelected(new Integer[] { 1, 2, 3 });
 ```
 
 ---
