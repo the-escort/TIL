@@ -13,12 +13,8 @@
 ```java
 conn = ds.getConnction();
 // ...
-try {
-    if (conn != null)
-    conn.close();
-} catch (SQLException e) {
-    e.printStackTrace();
-}
+try { if (conn != null) conn.close();
+} catch (SQLException e) { e.printStackTrace(); }
 
     ->
 
