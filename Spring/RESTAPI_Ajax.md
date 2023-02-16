@@ -2,11 +2,11 @@
 
 **J**ava **S**cript **O**bject **N**otation - 자바스크립트 객체 표기법
 
-```json
+```jsonc
 [{name : value}, {name : value}] // 객체 배열
 ```
 
-```json
+```jsonc
 {key1 : {name : value, ...}, key2 : {name : value, ...}, ...} // Map
 ```
 
@@ -19,7 +19,7 @@ JSON.stringify() - **객체**를 JSON **문자열**로 변환(직렬화, JS객�
 
 JSON.parse() - JSON **문자열**을 **객체**로 변환(역직렬화, 문자열 -> JS객체)
 
-```json
+```jsonc
 {name : "John", age : 30}
 
 JSON.stringify()
