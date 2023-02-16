@@ -210,3 +210,5 @@ List<BoardDto> list = boardDao.getSelected(new Integer[] { 1, 2, 3 });
 ```
 
 ---
+
+[https://mybatis.org/mybatis-3/ko/sqlmap-xml.html](https://mybatis.org/mybatis-3/ko/sqlmap-xml.html)
