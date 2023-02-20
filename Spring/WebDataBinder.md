@@ -48,3 +48,92 @@
 - 바인딩할 필드에 적용 - @NumberFormat, @DateTimeFormat
 
 ---
+
+### Validator
+
+- 객체를 검증하기 위한 인터페이스. 객체 검증기(validator)구현에 사용
+
+```java
+public interface Validator {
+    // 이 검증기로 검증가능한 객체인지 알려주는 메서드
+    boolean supports(Class<?> clazz);
+    // 객체를 검증하는 메서드 - target : 검증할 객체, errors : 검증시 발생한 에러저장소
+    void validate(@Nullable Object target, Errors errors);
+}
+```
+
+### Validator를 이용한 검증
+
+- 자동
+
+```java
+@PostMappingg("/register/add")
+public String save(Model model, User user, BindingResult result) {
+
+    UserValidator userValidator = new UserValidator();
+    userValidator.validate(user, result); // validator로 검증
+
+    if (result.hasErrors()) { // 에러가 있으면,
+        return "registerForm";
+    }
+}
+```
+
+- 수동
+
+```java
+@InitBinder
+public void toDate (WebDataBinder binder) {
+    SimpleDateFormat df = new SimpleDateFormat("уууу/MM/dd");
+    binder.registerCustomEditor(Date.class, new CustomDateEditor(df, false));
+
+    binder.setValidator(new UserValidator()); // validator를 WebDataBinder에 등록
+
+    List<Validator> validators = binder.getValidators();
+    System.out.println("validators = " + validators);
+}
+
+@PostMapping("/register/add") // 신규 회원 등록.
+public String save(Model m, @Valid User user, BindingResult result) {
+
+    if (result.hasErrors()) { // 에러가 있으면,
+        return "registerForm";
+    }
+}
+```
+
+### 글로벌 Validator
+
+- 하나의 Validator로 여러 객체를 검증할 때, 글로벌 Validator로 등록
+
+```
+<annotation-driven validator="globalValidator"/>
+<beans:bean id="globalValidator" class="com.fastcampus.ch2.GlobalValidator"/>
+```
+
+- 글로벌 Validator와 로컬 Validator를 동시에 적용하는 방법
+
+```java
+@InitBinder
+public void toDate(WebDataBinder binder) {
+    SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+    binder.registerCustomEditor(Date.class, new CustomDateEditor(df, false));
+
+// binder.setValidator(new UserValidator()); // validator를 WebDataBinder에 등록
+    binder.addValidators(new UserValidator()); // validator를 WebDataBinder에 등록
+}
+```
+
+### MessageSource
+
+- 다양한 리소스에서 메시지를 읽기 위한 인터페이스
+
+```java
+public interface MessageSource {
+    String getMessage(String code, Object[] args, String defaultMessage, Locale locale);
+    String getMessage(String code, Object[] args, Locale locale) throws NoSuchMessageException;
+    String getMessage(MessageSourceResolvable resolvable, Locale locale) throws NoSuchMessageException;
+}
+```
+
+---
