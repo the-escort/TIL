@@ -19,7 +19,7 @@ public class CommentController {
     CommentService service;
 
     // 댓글을 수정하는 메서드
-    @PatchMapping("/comments/{cno}") // /ch4/comments?bno=1085 PATCH
+    @PatchMapping("/comments/{cno}") // /ch4/comments?cno=1085 PATCH
     public ResponseEntity<String> modify(@PathVariable Integer cno, @RequestBody CommentDto dto) {
 //        String commenter = (String) session.getAttribute("id");
         String commenter = "asdf";
