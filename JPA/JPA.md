@@ -201,8 +201,6 @@ System.out.pringln(a == b); // 동일성 비교 true
 private Long id;
 ```
 
-
-
 - IDENTITY 전략
   - 기본 키 생성을 데이터베이스에 위임
   - 주로 MySQL, PostgreSQL, SQL Server, DB2에서 사용
@@ -241,3 +239,72 @@ private Long id;
     ```
 
 ---
+
+## 연관관계 매핑 기초
+
+- 객체를 테이블에 맞추어 데이터 중심으로 모델링하면, 협력 관계를 만들 수 없다.
+  - **테이블은 외래 키로 조인**을 사용해서 연관된 테이블을 찾는다.
+  - **객체는 참조**를 사용해서 연관된 객체를 찾는다.
+  - 테이블과 객체 사이에는 이런 큰 간격이 있다.
+
+### 단방향 연관관계
+
+- 객체의 참조와 테이블의 외래 키를 매핑
+
+    ```java
+    @Entity
+    public class Member {
+
+    @Id @GeneratedValue
+    private Long id;
+
+    @Column(name = "USERNAME")
+    private String name;
+    private int age;
+
+    // @Column(name = "TEAM_ID")
+    // private Long teamId;
+
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID")
+    private Team team;
+    ...
+    ```
+
+- 연관관계 저장
+
+    ```java
+    // 팀 저장
+    Team team = new Team();
+    team.setName("TeamA");
+    em.persist(team);
+
+    // 회원 저장
+    Member member = new Member();
+    member.setName("member1");
+    member.setTeam(team); // 단방향 연관관계 설정, 참조 저장
+    em.persist(member);
+    ```
+
+- 참조로 연관관계 조회 - 객체 그래프 탐색
+
+    ```java
+    // 조회
+    Member findMember = em.find(Member.class, member.getId());
+
+    // 참조를 사용해서 연관관계 조회
+    Team findTeam = findMember.getTeam();
+    ```
+
+- 연관관계 수정
+
+    ```java
+    // 새로운 팀B
+    Team teamB = new Team();
+    teamB.setName("TeamB");
+    em.persist(teamB);
+
+    // 회원1에 새로운 팀B 설정
+    member.setTeam(teamB); 
+    ```
+
