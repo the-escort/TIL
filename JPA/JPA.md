@@ -62,43 +62,43 @@ System.out.pringln(a == b); // 동일성 비교 true
 
 - 트랜잭션을 지원하는 쓰기 지연
 
-```java
-EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
-EntityManager em = emf.createEntityManager();
-EntityTransaction transaction = em.getTransaction();
-// 엔티티 매니저는 데이터 변경시 트랙잭션을 시작해야 한다.
-transaction.begin(); // [트랜잭션] 시작
+    ```java
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
+    EntityManager em = emf.createEntityManager();
+    EntityTransaction transaction = em.getTransaction();
+    // 엔티티 매니저는 데이터 변경시 트랙잭션을 시작해야 한다.
+    transaction.begin(); // [트랜잭션] 시작
 
-em.persist(memberA);
-em.persist(memberB);
-// 여기까지 INSERT SQL을 데이터베이스에 보내지 않는다.
+    em.persist(memberA);
+    em.persist(memberB);
+    // 여기까지 INSERT SQL을 데이터베이스에 보내지 않는다.
 
-// 커밋하는 순간 데이터베이스에 INSERT SQL을 보낸다.
-transaction.commit(); // [트랜잭션] 커밋
-```
+    // 커밋하는 순간 데이터베이스에 INSERT SQL을 보낸다.
+    transaction.commit(); // [트랜잭션] 커밋
+    ```
 
 ### 엔티티 수정
 
 - 변경 감지(Dirty Checking)
 
-```java
-EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
-EntityManager em = emf.createEntityManager();
-EntityTransaction transaction = em.getTransaction();
-// 엔티티 매니저는 데이터 변경시 트랙잭션을 시작해야 한다.
-transaction.begin(); // [트랜잭션] 시작
+    ```java
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
+    EntityManager em = emf.createEntityManager();
+    EntityTransaction transaction = em.getTransaction();
+    // 엔티티 매니저는 데이터 변경시 트랙잭션을 시작해야 한다.
+    transaction.begin(); // [트랜잭션] 시작
 
-// 영속 엔티티 조회
-Member memberA = em.find(Member.class, "memberA");
+    // 영속 엔티티 조회
+    Member memberA = em.find(Member.class, "memberA");
 
-// 영속 엔티티 데이터 수정
-memberA.setUsername("hi");
-memberA.setAge(10);
+    // 영속 엔티티 데이터 수정
+    memberA.setUsername("hi");
+    memberA.setAge(10);
 
-// em.update(member) ?
+    // em.update(member) ?
 
-transaction.commit(); // [트랜잭션] 커밋
-```
+    transaction.commit(); // [트랜잭션] 커밋
+    ```
 
 1. flush()
 2. 엔티티와 스냅샷 비교
@@ -106,7 +106,7 @@ transaction.commit(); // [트랜잭션] 커밋
     1차 캐시
     |@Id|Entitiy|스냅샷|
     |:---:|:---:|:---:|
-    |"memberA"|memberA|> memberA<br>스냅샷|
+    |"memberA"|memberA|memberA<br>스냅샷|
     |"memberB"|memberB|memberB<br>스냅샷|
 3. UPDATE SQL 생성
 4. flush
@@ -127,5 +127,117 @@ transaction.commit(); // [트랜잭션] 커밋
 - 영속성 컨텍스트를 비우지 않음
 - 영속성 컨텍스트의 변경내용을 데이터베이스에 동기화
 - 트랜잭션이라는 작업 단위가 중요 -> 커밋 직전에만 동기화 하면 됨
+
+### 준영속 상태
+
+- 영속 -> 준영속
+- 영속 상태의 엔티티가 영속성 컨텍스트에서 분리(detached)
+- 영속성 컨텍스트가 제공하는 기능을 사용 못함
+
+### 준영속 상태로 만드는 방법
+
+- em.detach(entity)
+
+    특정 엔티티만 준영속 상태로 전환
+
+- em.clear()
+
+    영속성 컨텍스트를 완전히 초기화
+
+- em.close()
+
+    영속성 컨텍스트를 종료
+
+---
+
+## 엔티티 매핑
+
+### 객체와 테이블 매핑
+
+- @Entitiy
+  - @Entitiy가 붙은 클래스는 JPA가 관리, 엔티티라 한다.
+  - JPA를 사용해서 테이블과 매핑할 클래스는 @Entity 필수
+  - 주의
+    - **기본 생성자 필수**(파라미터가 없는 public 또는 protected 생성자)
+    - final 클래스, enun, interface, inner 클래스 사용 X
+    - 저장할 필드에 final 사용 X
+
+- @Table
+  - @Table은 엔티티와 매핑할 테이블 지정
+
+### 필드와 컬럼 매핑
+
+- @Column
+
+    |속성|설명|기본값|
+    |:---:|:---|:---|
+    |name|필드와 매핑할 테이블의 컬럼 이름|객체의 필드 이름|
+    |insertable<br>updatable|등록, 변경 가능 여부|TRUE|
+    |nullable(DDL)|null값의 허용 여부를 설정한다. false로 설정하면 DDL 생성 시에 not null 제약조건이 붙는다.||
+    |length(DDL)|문자 길이 제약조건, String 타입에만 사용한다.|255|
+
+- @Enumerated
+  - 자바 enum 타입을 매핑할 때 사용
+  - 주의! ORDINAL 사용 X
+
+    |속성|설명|기본값|
+    |:---:|:---|:---|
+    |value|- EnumType.ORDINAL: enum 순서를 데이터베이스에 저장<br>- EnumType.STRING: enum 이름을 데이터베이스에 저장|EnumType.ORDINAL|
+
+- @Temporal
+  - 날짜 타입(java.util.Date, java.util.Calendar)을 매핑할 때 사용
+  - 참고: LocalDate, LocalDateTime을 사용할 때는 생략 가능(최신 하이버네이트 지원)
+
+- @Lob
+  - 데이터베이스 BLOB, CLOB 타입과 매핑
+    - @Lob에는 지정할 수 있는 속성이 없다.
+    - 매핑하는 필드 타입이 문자면 CLOB 매핑, 나머지는 BLOB 매핑
+
+### 기본 키 매핑
+
+```java
+@Id
+@GeneratedValue(strategy = GenerationType.AUTO)
+private Long id;
+```
+
+
+
+- IDENTITY 전략
+  - 기본 키 생성을 데이터베이스에 위임
+  - 주로 MySQL, PostgreSQL, SQL Server, DB2에서 사용
+
+    (예: MySQL의 AUTO_ INCREMENT)
+
+  - JPA는 보통 트랜잭션 커밋 시점에 INSERT SQL 실행
+  - AUTO_ INCREMENT는 데이터베이스에 INSERT SQL을 실행 한 이후에 ID 값을 알 수 있음
+  - IDENTITY 전략은 em.persist() 시점에 즉시 INSERT SQL 실행하고 DB에서 식별자를 조회
+
+    ```java
+    @Entitiy
+    public class Member {
+
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Long id;
+    }
+    ```
+
+- SEQUENCE 전략
+  - 데이터베이스 시퀀스는 유일한 값을 순서대로 생성하는 특별한 데이터베이스 오브젝트(예: 오라클 시퀀스)
+  - 오라클, PostgreSQL, DB2, H2 데이터베이스에서 사용
+
+    ```java
+    @Entity
+    @SequenceGenerator(
+        name = “MEMBER_SEQ_GENERATOR",
+        sequenceName = “MEMBER_SEQ", // 매핑할 데이터베이스 시퀀스 이름
+        initialValue = 1, allocationSize = 1)
+
+    public class Member {
+        @Id
+        @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEMBER_SEQ_GENERATOR")
+        private Long id;
+    ```
 
 ---
