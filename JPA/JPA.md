@@ -156,10 +156,10 @@ System.out.pringln(a == b); // 동일성 비교 true
 
 - @Entitiy
   - @Entitiy가 붙은 클래스는 JPA가 관리, 엔티티라 한다.
-  - JPA를 사용해서 테이블과 매핑할 클래스는 @Entity 필수
+  - JPA를 사용해서 테이블과 매핑할 클래스는 **@Entity** 필수
   - 주의
     - **기본 생성자 필수**(파라미터가 없는 public 또는 protected 생성자)
-    - final 클래스, enun, interface, inner 클래스 사용 X
+    - final 클래스, enum, interface, inner 클래스 사용 X
     - 저장할 필드에 final 사용 X
 
 - @Table
@@ -305,6 +305,179 @@ private Long id;
     em.persist(teamB);
 
     // 회원1에 새로운 팀B 설정
-    member.setTeam(teamB); 
+    member.setTeam(teamB);
     ```
+
+### 양방향 연관관계와 연관관계의 주인
+
+- 양방향 매핑
+
+    Member 엔티티는 단방향과 동일
+
+     ```java
+    @Entity
+    public class Member {
+
+    @Id @GeneratedValue
+    private Long id;
+
+    @Column(name = "USERNAME")
+    private String name;
+    private int age;
+
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID")
+    private Team team;
+    ```
+
+    Team 엔티티는 컬렉션 추가
+
+    ```java
+    @Entity
+    public class Team {
+
+        @Id @GeneratedValue
+        private Long id;
+
+        private String name;
+
+        @OneToMany(mappedBy = "team")
+        List<Member> members = new ArrayList<Member>();
+        ...
+    }
+    ```
+
+    반대 방향으로 객체 그래프 탐색
+
+    ```java
+    // 조회
+    Team findeTeam = em.find(Team.class, team.getId());
+    int memberSize = findTeam.getMember().size(); // 역방향 조회
+    ```
+
+- 객체의 양방향 관계
+  - 객체의 **양방향 관계는 사실 양방향 관계가 아니라 서로 다른 단방향 관계 2개다.**
+  - 객체를 양방향으로 참조하려면 단방향 연관관계를 2개 만들어야 한다.
+
+    ```java
+    class A {
+        B b;
+    }
+
+    class B {
+        A a;
+    }
+    ```
+
+- 테이블의 양방향 연관관계
+  - 테이블은 **외래 키 하나**로 두 테이블의 연관관계를 관리
+  - MEMBER.TEAM_ID 외래 키 하나로 양방향 연관관계 가짐
+    
+    (양쪽으로 조인할 수 있다.)
+
+    ```sql
+    SELECT * 
+    FROM MEMBER M
+    JOIN TEAM T ON M.TEAM_ID = T.TEAM_ID
+
+    SELECT * 
+    FROM TEAM T
+    JOIN MEMBER M ON T.TEAM_ID = M.TEAM_ID
+    ```
+
+- 연관관계의 주인(Owner)
+
+    **양방향 매핑 규칙**
+    - 객체의 두 관계중 하나를 연관관계의 주인으로 지정
+    - **연관관계의 주인만이 외래 키를 관리(등록, 수정)**
+    - **주인이 아닌쪽은 읽기만 가능**
+    - 주인은 mappedBy 속성 사용 X
+    - 주인이 아니면 mappedBy 속성으로 주인 지정
+
+---
+
+## 다양한 연관관계 매핑
+
+### 다대일 [N : 1]
+
+- 외래 키가 있는 쪽이 연관관계의 주인
+- 양쪽을 서로 참조하도록 개발
+
+### 일대다 [1 : N]
+
+- 일대다 단방향은 일대다(1 : N)에서 **일(1)이 연관관계의 주인**
+- 테이블 일대다 관계는 항상 **다(N) 쪽에 외래 키가 있음**
+- 객체와 테이블의 차이 때문에 반대편 테이블의 외래 키를 관리하는 특이한 구조
+- @JoinColumn을 쪽 사용해야 함. 그렇지 않으면 조인 테이블 방식을 사용함(중간에 테이블을 하나 추가함)
+- 일대다 단방향 매핑의 단점
+  - 엔티티가 관리하는 외래 키가 다른 테이블에 있음
+  - 연관관계 관리를 위해 추가로 UPDATE SQL 실행
+- 일대다 단방향 매핑보다는 다대일 양방향 매핑을 사용하자
+
+### 일대일 [1 : 1]
+
+- 일대일 관계는 그 반대도 일대일
+- 주 테이블이나 대상 테이블 중에 외래 키 선택 가능
+  - 주 테이블에 외래 키
+  - 대상 테이블에 외래 키
+- 외래 키에 데이터베이스 유니크(UNI) 제약조건 추가
+
+- 다대일 양방향 매핑처럼 외래 키가 있는 곳이 연관관계의 주인
+- 반대편은 mappedBy 적용
+
+---
+
+## 고급 매핑
+
+### 상속관계 매핑
+
+- 상속관계 매핑
+  - 관계형 데이터베이스는 상속 관계 X
+  - 슈퍼타입 서브타입 관계라는 모델링 기법이 객체 상속과 유사
+  - 상속관계 매핑 : 객체의 상속과 구조와 DB의 슈퍼타입 서브타입 관계를 매핑
+
+  - 슈퍼타입 서브타입 논리 모델을 실제 물리 모델로 구현하는 방법
+    - 각각테이블로변환->조인전략
+    - 통합 테이블로 변환 -> 단일 테이블 전략
+
+- 주요 어노테이션
+  - @Inheritance(strategy = InheritanceType.XXX)
+    - **JOINED** : 조인 전략
+    - **SINGLE_TABLE** : 단일 테이블 전략
+    - TABLE_PER_CLASS : 구현 클래스마다 테이블 전략
+  - @DiscriminatorColumn(name = "DYPE")
+  - @DiscriminatorValue("XXX") 
+
+- 조인 전략
+  - 장점
+    - 테이블 정규화
+    - 외래 키 참조 무결성 제약조건 활용가능
+    - 저장공간 효율화
+  - 단점
+    - 조회시 조인을 많이 사용, 성능 저하
+    - 조회 쿼리가 복잡함
+    - 데이터 저장시 INSERT SQL 2번 호출
+
+- 단일 테이블 전략
+  - 장점
+    - 조인이 필요 없으므로 일반적으로 조회 성능이 빠름
+    - 조회 쿼리가 단순함
+  - 단점
+    - 자식 엔티티가 매핑한 컬럼은 모두 Null 허용
+    - 단일 테이블에 모든 것을 저장하므로 테이블이 커질 수 있다. 상황에 따라서 조회 성능이 오히려 느려질 수 있다.
+
+## Mapped Superclass - 매핑 정보 상속
+
+### @MappedSuperclass
+
+- 공통 매핑 정보가 필요할 때 사용(id, name)
+- 상속관계 매핑 X
+- 엔티티 X, 테이블과 매핑 X
+- 부모 클래스를 상속 받는 **자식 클래스에 매핑 정보만 제공**
+- 조회, 검색 불가(**em.find(BaseEntity) 불가**)
+- 직접 생성해서 사용할 일이 없으므로 추상 클래스 권장
+
+- 테이블과 관계 없고, 단순히 엔티티가 공통으로 사용하는 매핑 정보를 모으는 역할
+- 주로 등록일, 수정일, 등록자, 수정자 같은 전체 엔티티에서 공통 으로 적용하는 정보를 모을 때 사용
+- 참고 : @Entity 클래스는 엔티티나 @MappedSuperclass로 지 정한 클래스만 상속 가능
 
