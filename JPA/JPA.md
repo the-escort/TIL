@@ -314,7 +314,7 @@ private Long id;
 
     Member 엔티티는 단방향과 동일
 
-     ```java
+    ```java
     @Entity
     public class Member {
 
@@ -481,3 +481,54 @@ private Long id;
 - 주로 등록일, 수정일, 등록자, 수정자 같은 전체 엔티티에서 공통 으로 적용하는 정보를 모을 때 사용
 - 참고 : @Entity 클래스는 엔티티나 @MappedSuperclass로 지 정한 클래스만 상속 가능
 
+---
+
+## 프록시와 연관관계 관리
+
+### 프록시
+
+- 프록시 기초
+  - em.find() vs em.getReference()
+  - em.find() : 데이터베이스를 통해서 실제 엔티티 객체 조회
+  - em.getReference() : **데이터베이스 조회를 미루는 가짜(프록시) 엔티티 객체 조회**
+
+- 프록시 특징
+  - 실제 클래스를 상속 받아서 만들어짐
+  - 실제 클래스와 겉 모양이 같다.
+
+  - 프록시 객체는 실제 객체의 참조(target)를 보관
+  - 프록시 객체를 호출하면 프록시 객체는 실제 객체의 메소드 호출
+
+  - 프록시 객체는 처음 사용할 때 한번만 초기화
+  - 프록시 객체를 초기화 할 때, 프록시 객체가 실제 엔티티로 바뀌는 것은 아님, 초기화되면 프록시 객체를 통해서 실제 엔티티에 접근 가능
+  - 프록시 객체는 원본 엔티티를 상속받음, 따라서 타입 체크시 주의해야함 (== 비교 실패, 대신 instance of 사용)
+  - 영속성 컨텍스트에 찾는 엔티티가 이미 있으면 em.getReference()를 호출해도 실제 엔티티 반환
+
+### 즉시 로딩과 지연 로딩
+
+- 지연 로딩 LAZY을 사용해서 프록시로 조회
+
+    ```java
+    @Entity
+    public class Member {
+      
+        @Id
+        @GeneratedValue
+        private Long id;
+
+        @Column(name = "USERNAME")
+        private String name;
+
+        @ManyToOne(fetch = FetchType.LAZY) // **
+        @JoinColumn(name = "TEAM_ID")
+        private Team team;
+        ...
+    }
+    ```
+
+- 프록시와 즉시로딩 주의
+  - **가급적 지연 로딩만 사용**
+  - 즉시 로딩을 적용하면 예상하지 못한 SQL이 발생
+  - **즉시 로딩은 JPQL에서 N + 1 문제를 일으킨다.**
+  - **@ManyToOne, @OneToOne은 기본이 즉시 로딩 -> LAZY로 설정**
+  - @OneToMany, @ManyToMany는 기본이 지연 로딩
